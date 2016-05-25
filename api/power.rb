@@ -38,6 +38,7 @@ module Acme
             if monitoring_session
                 ping = ICMP4EM::ICMPv4.instances[monitoring_session.instance_id]
                 ping.present? ? ping.stop : error!(500)
+                monitoring_session.closed_at = Time.now.getutc
                 monitoring_session.session_state = 'close'
                 monitoring_session.save
             else
