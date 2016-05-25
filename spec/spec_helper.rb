@@ -13,3 +13,11 @@ RSpec.configure do |config|
 end
 
 require 'goliath/test_helper'
+
+module Goliath
+  module TestHelper
+    def with_api(api, options = { :log_stdout => false }, &blk)
+      server(api, options.delete(:port) || 9901, options, &blk)
+    end
+  end
+end

@@ -70,8 +70,10 @@ module Acme
                     sample_variance = latency_array.inject(0) { |accum, i| accum + (i - mean)**2 }
                     stdev = Math.sqrt(sample_variance)
 
+                    status 200
                     { mean: mean.round(3), max: max.round(3), min: min.round(3), stdev: stdev.round(3), median: median.round(3), expired: failed_pings.count }
                 else
+                    status 200
                     { expired: failed_pings.count }
                 end
             else
