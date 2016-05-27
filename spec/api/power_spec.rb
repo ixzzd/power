@@ -14,9 +14,9 @@ describe Acme::API do
 
     it 'Add correct ip to monitoring' do
         with_api Acme::App do
-            post_request(path: '/api/monitoring_session', body: {ip: '81.19.82.11'}) do |async|
+            post_request(path: '/api/monitoring_session', body: {ip: '127.0.0.1'}) do |async|
                 last_session = MonitoringSession.last
-                expect(last_session.ip).to eq('81.19.82.11')
+                expect(last_session.ip).to eq('127.0.0.1')
                 expect(last_session.session_state).to eq('open')
             end
         end
@@ -27,15 +27,14 @@ describe Acme::API do
         with_api Acme::App do
             delete_request(path: '/api/monitoring_session', body: {ip: ip}) do |async|
               expect(async.response).to eq({"error":'Open monitoring session with this ip not found'}.to_json)
-
             end
         end
     end
 
     it 'Remove correct ip from monitoring' do
       with_api Acme::App do
-          delete_request(path: '/api/monitoring_session', body: {ip: '81.19.82.11'}) do |async|
-              session = MonitoringSession.where(ip: '81.19.82.11').first
+          delete_request(path: '/api/monitoring_session', body: {ip: '127.0.0.1'}) do |async|
+              session = MonitoringSession.where(ip: '127.0.0.1').first
               expect(session.session_state).to eq('close')
           end
       end
@@ -43,7 +42,7 @@ describe Acme::API do
 
     it 'Get blank monitoring info' do
       with_api Acme::App do
-          post_request(path: '/api/monitoring_session_info', body: {ip: '81.19.82.11', monitoring_from:'2015-05-24 06:03:21', monitoring_to:'2015-05-28 06:03:21'}) do |async|
+          post_request(path: '/api/monitoring_session_info', body: {ip: '127.0.0.1', monitoring_from:'2015-05-24 06:03:21', monitoring_to:'2015-05-28 06:03:21'}) do |async|
               expect(async.response).to eq({"error": "Such monitoring info not found"}.to_json)
           end
       end
