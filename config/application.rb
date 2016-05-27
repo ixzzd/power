@@ -17,8 +17,8 @@ ActiveRecord::Base.establish_connection(:adapter  => 'em_mysql2',
                                         :host     => 'localhost',
                                         :pool     => 5)
 
-Dir[File.expand_path('../../app/models/*.rb', __FILE__)].each {|f| require f}
 Dir[File.expand_path('../../app/helpers/*.rb', __FILE__)].each {|f| require f}
+Dir[File.expand_path('../../app/models/*.rb', __FILE__)].each {|f| require f}
 Dir[File.expand_path('../../api/*.rb', __FILE__)].each {|f| require f}
 
 require 'api'

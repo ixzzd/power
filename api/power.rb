@@ -5,7 +5,7 @@ module Acme
         format :json
 
         helpers do
-          include MonitoringHelper
+          include PingHelper
         end
 
         desc 'Add ip to monitoring'

@@ -1,4 +1,4 @@
-module MonitoringHelper
+module PingHelper
   def statistic(params)
       return nil unless params[:pings]
       success_pings = params[:pings].success
